@@ -2,6 +2,7 @@
 Tablero::Tablero(){}
 Tablero::~Tablero(){}
 void Tablero::mostrarTiempo(){
+	// funcion que cuenta cada segundo para ser mostrado en un timer en pantalla
 	int hh = 0, mm = 0, ss = 0;
 	while(1){
 		ss++;
