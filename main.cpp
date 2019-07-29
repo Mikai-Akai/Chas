@@ -1,5 +1,5 @@
 #include "tablero.h"
-#include <vector>
+
 
 int main() {
 	//iniciar la semilla de random en hora del sistema
@@ -7,6 +7,6 @@ int main() {
 	//generar tablero de juego
 	Tablero tab1;
 	//iniciar timer
-	tab1.mostrarTiempo();
+	tab1.cronometro();
 	/*ADVERTENCIA-------JUEGO INCOMPLETO*/
 }

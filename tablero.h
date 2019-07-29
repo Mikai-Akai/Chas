@@ -7,13 +7,14 @@ class Tablero{
 	public:
 	Tablero();
 	~Tablero();
-	void mostrarTiempo();
+	void cronometro(int limite);
+	void selectLevel(string nombre_archivo);
 	void match();
 	void ganar();
 	void perder();
 	void menu();
 	private:
-	Caja tamaño[7][7];
+	Caja *matriz[7][7];
 	int tiempoJuego;
 	int GemasMente = 0;
 };
