@@ -1,20 +1,10 @@
 #include "tablero.h"
 Tablero::Tablero(){
-	new Caja mente(1);
-	new Caja poder(2);
-	new Caja alma(3);
-	new Caja realidad(4);
-	new Caja tiempo(5);
-	new Caja espacio(6);
 }
 Tablero::~Tablero(){
-	delete Caja mente(1);
-	delete Caja poder(2);
-	delete Caja alma(3);
-	delete Caja realidad(4);
-	delete Caja tiempo(5);
-	delete Caja espacio(6);
 }
+/* 
+Debido a incompatibilidad con replit la funcion cronometro esta en comentada
 void Tablero::cronometro(int limite){
 	// funcion que cuenta cada segundo para ser mostrado en un timer en pantalla
 	int mm = 0, ss = 0;
@@ -23,6 +13,7 @@ void Tablero::cronometro(int limite){
 		if (ss == 60) {
 			ss = 0;
 			mm++;
+			tiempoJuego -= 1
 		}
 		system("cls");
 		cout << mm << ":" << ss << endl;
@@ -30,6 +21,25 @@ void Tablero::cronometro(int limite){
 	}
 	
 }
-void Tablero::selectLevel(int a) {
-	archivo.open("Nivel1.txt", noreplace);
+*/
+//Esta funcion revisa si se ha hecho un chasquido y retorna un true o false de acuerdo a esto
+bool Tablero::ganar() {
+	if (tiempoJuego == 0) {
+		return false;
+	}else 
+  if(chasquido){
+    return true;}
+}
+//Esta funcion selecciona el nivel a jugar y extrae lo datos del txt para mostrar el nivel
+void Tablero::selectLevel(stfilembre_archivo) {
+	ifstream aif ifstreamo(archivo, ios::noreplace);ifsarchivo >> tiempoJuego; ifstream
+  archivo >> tiempoJuego;
+  archivo >> gemasifstream
+  for(int i = 0;i<5;i++){
+    archivo >> otrasGemas[i];
+  }
+	for (int i = 0; i < 7;i++)ma		for ([j]ifstream; i < 7; i++) {
+			Mamatriz[i]]] < archivo;
+		}
+	}
 }
