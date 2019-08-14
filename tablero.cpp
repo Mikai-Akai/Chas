@@ -95,7 +95,31 @@ void Tablero::match(){
 	cout << "ingrese la posicion X,Y del segundo punto" << endl;
 	cin >> posX2;
 	cin >> posY2;
+	if(posX1 > 6){posX1 = 6;}
+	if(posX1 < 0){posX1 = 0;}
+	if(posX2 > 6){posX2 = 6;}
+	if(posX2 < 0){posX2 = 0;}
+	if(posY1 > 6){posY1 = 6;}
+	if(posY1 < 0){posY1 = 0;}
+	if(posY2 > 6){posY2 = 6;}
+	if(posY2 < 0){posY2 = 0;}
 	cout << "["<< posX2 <<"]["<< posY2 <<"]" << endl;
-	swap(matriz[posX1][posY1],matriz[posX2][posY2]);
-	mostrarTablero();
+	if(posX1 == posX2 && posY1 == posY2){
+		cout << "no puedes realizar este intercambio" << endl;
+	}else 
+	if((posX1 == posX2 || posY1 == posY2) && ((posX1+1 == posX2 || posX1-1 == posX2) || (posY1+1 == posY2 || posY1-1 == posY2))){
+		swap(matriz[posX1][posY1],matriz[posX2][posY2]);
+		mostrarTablero();
+	}
+	else{cout << "no puedes realizar este intercambio" << endl;
+	}
+	/* incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
+	for(int i = 6;i > 0; i--){
+		for(int j = 6; j > 0; j--){
+			if(matriz[i][j] == matriz[i-1][j] && matriz[i][j] == matriz[i+1][j]){}
+			if(matriz[i][j] == matriz[i][j-1] && matriz[i][j] == matriz[i][j+1]){}
+
+		}
+	}
+	*/
 }
