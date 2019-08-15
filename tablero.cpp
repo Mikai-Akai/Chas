@@ -56,13 +56,16 @@ void Tablero::selectLevel(string nombre_archivo) {
 	}
 }
 void Tablero::mostrarTablero(){
+  cout<<"   0|1|2|3|4|5|6"<<endl;
 	for(int i=0;i<7;i++){
+    cout<<i<<"| ";
 		for(int j = 0; j<7; j++){
 			 cout << matriz[i][j] << " ";
 		}
 		cout << endl;
 	}
 	cout << endl;
+  contador();  
 }
 void Tablero::guardarTablero(){
 	ofstream Guardando;
@@ -122,4 +125,32 @@ void Tablero::match(){
 		}
 	}
 	*/
+}
+void Tablero::contador()
+{
+  int a1=0, a2=0, a3=0, a4=0, a5=0, a6=0;
+  for(int i=0;i<7;i++){
+      for(int j = 0; j<7; j++){
+			 if(matriz[i][j]==1)
+       {
+        a1=a1+1;
+       } else if (matriz[i][j]==2){
+         a2=a2+1;
+       } else if (matriz[i][j]==3){
+         a3=a3+1;
+       } else if (matriz[i][j]==4){
+         a4=a4+1;
+       } else if (matriz[i][j]==5){
+         a5=a5+1;
+       } else if (matriz[i][j]==6){
+         a6=a6+1;
+       }      
+    }    
+  }
+  cout<<"Cantidad de gemas poder: "<<a1<<endl;
+  cout<<"Cantidad de gemas espacio: "<<a2<<endl;
+  cout<<"Cantidad de gemas tiempo: "<<a3<<endl;
+  cout<<"Cantidad de gemas alma: "<<a4<<endl;
+  cout<<"Cantidad de gemas realidad: "<<a5<<endl;
+  cout<<"Cantidad de gemas mente: "<<a6<<endl;        
 }
