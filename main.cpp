@@ -6,6 +6,9 @@ int main() {
 	srand(time(NULL));
 	//generar tablero de juego
 	Tablero tab1;
+  cout << "Bienvenido al juego de match3: las Gemas del infinito:" << endl;
+	cout << "Tu mision es completar las 6 gemas en linea recta y ayudar a thanos a destruir la mitad de la vida existente, para esto, debes mover las gemas segun sus coordenadas con gemas identicas formando filas y columnas, las gemas mente estan bloqueadas, debes hacer matchs junto a ellas de otras gemas para desbloquearlas..." << endl;
+	cout << "completa el guantelete, une las 6 gemas y ayuda a Thanos, tu misión inicia ahora...."<<endl;
 	cout << "deseas jugar un nivel predeterminado? o una partida ya existente?" << endl;
 	cout << "[1] nivel" << endl;
 	cout << "[2] existente" << endl;
