@@ -14,6 +14,7 @@ public:
 	void match();
 	bool victoria();
 	void menu();
+  void contador();
 private:
 	int nivel;
 	int matriz[7][7];
