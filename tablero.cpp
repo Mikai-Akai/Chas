@@ -1,4 +1,7 @@
 #include "tablero.h"
+#include<stdlib.h>
+#include<time.h>
+
 using namespace std;
 Tablero::Tablero(){
 	nivel = 0;
@@ -63,10 +66,16 @@ void Tablero::selectLevel(string nombre_archivo) {
 	}
 }
 void Tablero::mostrarTablero(){
+  srand(time(NULL));
 	cout<<"   0|1|2|3|4|5|6"<<endl;
 	for(int i=0;i<7;i++){
 		cout<<i<<"| ";
 		for(int j = 0; j<7; j++){
+      if (matriz[i][j]==0)
+      {      
+      int num=1+rand()%(6-1);
+      matriz[i][j]=num;
+      }
 			cout << matriz[i][j] << " ";
 		}
 		cout << endl;
@@ -92,9 +101,9 @@ void Tablero::guardarTablero(){
 		Guardando << endl;
 	}
 }
-void Tablero::match(){
+void Tablero::movimiento(){
 	int posX1,posY1,posX2,posY2;
-	cout << "ingrese la posicion X,Y del primer punto" << endl;
+	cout << "ingrese la posicion Y, X del primer punto" << endl;
 	
 	cin >> posX1;
 	cin >> posY1;
@@ -119,19 +128,11 @@ void Tablero::match(){
 	}else 
 	if((posX1 == posX2 || posY1 == posY2) && ((posX1+1 == posX2 || posX1-1 == posX2) || (posY1+1 == posY2 || posY1-1 == posY2))){
 		swap(matriz[posX1][posY1],matriz[posX2][posY2]);
+    match();
 		mostrarTablero();
 	}else{
 		cout << "no puedes realizar este intercambio" << endl;
 	}
-	/* incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
-	for(int i = 6;i > 0; i--){
-		for(int j = 6; j > 0; j--){
-			if(matriz[i][j] == matriz[i-1][j] && matriz[i][j] == matriz[i+1][j]){}
-			if(matriz[i][j] == matriz[i][j-1] && matriz[i][j] == matriz[i][j+1]){}
-
-		}
-	}
-	*/
 }
 void Tablero::contador(){
 	int a1=0, a2=0, a3=0, a4=0, a5=0, a6=0;
@@ -152,10 +153,40 @@ void Tablero::contador(){
        		}      
     	}    
   	}
-  	cout<<"Cantidad de gemas poder: "<<a1<<endl;
-  	cout<<"Cantidad de gemas espacio: "<<a2<<endl;
-  	cout<<"Cantidad de gemas tiempo: "<<a3<<endl;
-  	cout<<"Cantidad de gemas alma: "<<a4<<endl;
-  	cout<<"Cantidad de gemas realidad: "<<a5<<endl;
-  	cout<<"Cantidad de gemas mente: "<<a6<<endl;        
+  	cout<<"Cantidad de gemas (1) poder: "<<a1<<endl;
+  	cout<<"Cantidad de gemas (2) espacio: "<<a2<<endl;
+  	cout<<"Cantidad de gemas (3) tiempo: "<<a3<<endl;
+  	cout<<"Cantidad de gemas (4) alma: "<<a4<<endl;
+  	cout<<"Cantidad de gemas (5) realidad: "<<a5<<endl;
+  	cout<<"Cantidad de gemas (6) mente: "<<a6<<endl;        
+}
+void Tablero::match()
+{
+  //incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
+	for(int i = 6;i >= 0; i--){
+		for(int j = 6; j >= 0; j--){
+      int x=matriz[i][j];
+			if(x == matriz[i-1][j])
+      {
+        matriz[i][j]=0;
+        matriz[i-1][j]=0;
+      }
+      if(x == matriz[i+1][j])
+      {
+        matriz[i][j]=0;
+        matriz[i+1][j]=0;
+      }
+      if(x == matriz[i][j-1])
+      {
+        matriz[i][j]=0;
+        matriz[i][j-1]=0;
+      }
+      if(x == matriz[i][j+1])
+      {
+        matriz[i][j]=0;        
+        matriz[i][j+1]=0;
+      }
+
+		}
+	}  
 }
