@@ -11,7 +11,8 @@ public:
 	void selectLevel(string nombre_archivo);
 	void mostrarTablero();
 	void guardarTablero();
-	void match();
+	void movimiento();
+  void match();
 	bool victoria();
 	void menu();
   void contador();
