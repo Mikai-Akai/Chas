@@ -32,56 +32,59 @@ void Tablero::cronometro(int limite){
 }
 */
 //Esta funcion revisa si se ha hecho un chasquido y retorna un true o false de acuerdo a esto
-bool Tablero::victoria() {
-	if(chasquido){return true;}else{return false;}
+bool Tablero::victoria(){
+	if(chasquido){
+		return true;
+	}else{
+		return false;
+	}
 }
 //Esta funcion selecciona el nivel a jugar y extrae lo datos del txt para mostrar el nivel
 void Tablero::selectLevel(string nombre_archivo) {
 	ifstream archivo(nombre_archivo.c_str());
 	int aux = 0;
-
 	archivo >> aux;
 	nivel = aux;
-
 	archivo >> aux;
 	tiempoJuego = aux;
-
   	for(int i = 0;i<=5;i++){
-    archivo >> Puntaje[i];
+    	archivo >> Puntaje[i];
   	}
 	for(int i=0;i<7;i++){
 		for(int j = 0; j<7; j++){
 			archivo >> matriz[i][j];
+			if(matriz[i][j] == 6 && gemasMente == 3){
+				matriz[i][j] = rand() %(6-1);
+			}
+			if(gemasMente <= 2 && matriz[i][j] == 6){
+				gemasMente+=1;
+			}
 		}
 	}
 }
 void Tablero::mostrarTablero(){
-  cout<<"   0|1|2|3|4|5|6"<<endl;
+	cout<<"   0|1|2|3|4|5|6"<<endl;
 	for(int i=0;i<7;i++){
-    cout<<i<<"| ";
+		cout<<i<<"| ";
 		for(int j = 0; j<7; j++){
-			 cout << matriz[i][j] << " ";
+			cout << matriz[i][j] << " ";
 		}
 		cout << endl;
 	}
 	cout << endl;
-  contador();  
+  	contador();  
 }
 void Tablero::guardarTablero(){
 	ofstream Guardando;
 	cout << "ingresa el nombre de esta partida" << endl;
-
 	string aux;
 	cin >> aux;
 	Guardando.open(aux + ".txt");
-
 	Guardando << nivel << endl;
 	Guardando << tiempoJuego << endl;
-
 	for(int i = 0;i<=5;i++){
-    Guardando << Puntaje[i] << endl;
+		Guardando << Puntaje[i] << endl;
   	}
-
 	for(int i=0;i<7;i++){
 		for(int j = 0; j<7; j++){
 			Guardando << matriz[i][j] << " ";
@@ -92,20 +95,24 @@ void Tablero::guardarTablero(){
 void Tablero::match(){
 	int posX1,posY1,posX2,posY2;
 	cout << "ingrese la posicion X,Y del primer punto" << endl;
+	
 	cin >> posX1;
 	cin >> posY1;
-	cout << "["<< posX1 <<"]["<< posY1 <<"]" << endl;
-	cout << "ingrese la posicion X,Y del segundo punto" << endl;
-	cin >> posX2;
-	cin >> posY2;
 	if(posX1 > 6){posX1 = 6;}
 	if(posX1 < 0){posX1 = 0;}
-	if(posX2 > 6){posX2 = 6;}
-	if(posX2 < 0){posX2 = 0;}
 	if(posY1 > 6){posY1 = 6;}
 	if(posY1 < 0){posY1 = 0;}
+	
+	cout << "["<< posX1 <<"]["<< posY1 <<"]" << endl;
+	cout << "ingrese la posicion X,Y del segundo punto" << endl;
+	
+	cin >> posX2;
+	cin >> posY2;
+	if(posX2 > 6){posX2 = 6;}
+	if(posX2 < 0){posX2 = 0;}
 	if(posY2 > 6){posY2 = 6;}
 	if(posY2 < 0){posY2 = 0;}
+	
 	cout << "["<< posX2 <<"]["<< posY2 <<"]" << endl;
 	if(posX1 == posX2 && posY1 == posY2){
 		cout << "no puedes realizar este intercambio" << endl;
@@ -113,8 +120,8 @@ void Tablero::match(){
 	if((posX1 == posX2 || posY1 == posY2) && ((posX1+1 == posX2 || posX1-1 == posX2) || (posY1+1 == posY2 || posY1-1 == posY2))){
 		swap(matriz[posX1][posY1],matriz[posX2][posY2]);
 		mostrarTablero();
-	}
-	else{cout << "no puedes realizar este intercambio" << endl;
+	}else{
+		cout << "no puedes realizar este intercambio" << endl;
 	}
 	/* incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
 	for(int i = 6;i > 0; i--){
@@ -126,31 +133,29 @@ void Tablero::match(){
 	}
 	*/
 }
-void Tablero::contador()
-{
-  int a1=0, a2=0, a3=0, a4=0, a5=0, a6=0;
-  for(int i=0;i<7;i++){
-      for(int j = 0; j<7; j++){
-			 if(matriz[i][j]==1)
-       {
-        a1=a1+1;
-       } else if (matriz[i][j]==2){
-         a2=a2+1;
-       } else if (matriz[i][j]==3){
-         a3=a3+1;
-       } else if (matriz[i][j]==4){
-         a4=a4+1;
-       } else if (matriz[i][j]==5){
-         a5=a5+1;
-       } else if (matriz[i][j]==6){
-         a6=a6+1;
-       }      
-    }    
-  }
-  cout<<"Cantidad de gemas poder: "<<a1<<endl;
-  cout<<"Cantidad de gemas espacio: "<<a2<<endl;
-  cout<<"Cantidad de gemas tiempo: "<<a3<<endl;
-  cout<<"Cantidad de gemas alma: "<<a4<<endl;
-  cout<<"Cantidad de gemas realidad: "<<a5<<endl;
-  cout<<"Cantidad de gemas mente: "<<a6<<endl;        
+void Tablero::contador(){
+	int a1=0, a2=0, a3=0, a4=0, a5=0, a6=0;
+	for(int i=0;i<7;i++){
+     	for(int j = 0; j<7; j++){
+			if (matriz[i][j]==1)/*Poder*/{
+         		a1=a1+1;
+       		} else if (matriz[i][j]==2)/*Espacio*/{
+         		a2=a2+1;
+       		} else if (matriz[i][j]==3)/*Tiempo*/{
+         		a3=a3+1;
+       		} else if (matriz[i][j]==4)/*Alma*/{
+         		a4=a4+1;
+       		} else if (matriz[i][j]==5)/*Realidad*/{
+         		a5=a5+1;
+       		} else if (matriz[i][j]==6)/*Mente*/{
+         		a6=a6+1;
+       		}      
+    	}    
+  	}
+  	cout<<"Cantidad de gemas poder: "<<a1<<endl;
+  	cout<<"Cantidad de gemas espacio: "<<a2<<endl;
+  	cout<<"Cantidad de gemas tiempo: "<<a3<<endl;
+  	cout<<"Cantidad de gemas alma: "<<a4<<endl;
+  	cout<<"Cantidad de gemas realidad: "<<a5<<endl;
+  	cout<<"Cantidad de gemas mente: "<<a6<<endl;        
 }
