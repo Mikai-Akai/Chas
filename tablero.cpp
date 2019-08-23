@@ -166,22 +166,22 @@ void Tablero::match()
 	for(int i = 6;i >= 0; i--){
 		for(int j = 6; j >= 0; j--){
       int x=matriz[i][j];
-			if(x == matriz[i-1][j])
+	if(x == matriz[i-1][j])
       {
         matriz[i][j]=0;
         matriz[i-1][j]=0;
       }
-      if(x == matriz[i+1][j])
+      	if(x == matriz[i+1][j])
       {
         matriz[i][j]=0;
         matriz[i+1][j]=0;
       }
-      if(x == matriz[i][j-1])
+      	if(x == matriz[i][j-1])
       {
         matriz[i][j]=0;
         matriz[i][j-1]=0;
       }
-      if(x == matriz[i][j+1])
+      	if(x == matriz[i][j+1])
       {
         matriz[i][j]=0;        
         matriz[i][j+1]=0;
