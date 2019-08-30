@@ -56,10 +56,13 @@ void Tablero::selectLevel(string nombre_archivo) {
 	for(int i=0;i<7;i++){
 		for(int j = 0; j<7; j++){
 			archivo >> matriz[i][j];
-			if(matriz[i][j] == 6 && gemasMente == 3){
+			if(matriz[i][j] == 6){
+				matriz[i][j] = 9;
+			}
+			if(matriz[i][j] == 9 && gemasMente == 3){
 				matriz[i][j] = rand() %(6-1);
 			}
-			if(gemasMente <= 2 && matriz[i][j] == 6){
+			if((gemasMente <= 2) && (matriz[i][j] == 9 || matriz[i][j] == 6)){
 				gemasMente+=1;
 			}
 		}
@@ -127,7 +130,7 @@ void Tablero::movimiento(){
 		cout << "no puedes realizar este intercambio" << endl;
 	}else 
 	if((posX1 == posX2 || posY1 == posY2) && ((posX1+1 == posX2 || posX1-1 == posX2) || (posY1+1 == posY2 || posY1-1 == posY2))){
-		swap(matriz[posX1][posY1],matriz[posX2][posY2]);
+		if((matriz[posX1][posX2] != 9) || (matriz[posX2][posY2] != 9)){swap(matriz[posX1][posY1],matriz[posX2][posY2]);}
     match();
 		mostrarTablero();
 	}else{
