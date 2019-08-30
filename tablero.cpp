@@ -73,118 +73,10 @@ void Tablero::mostrarTablero(){
 	cout<<"   0|1|2|3|4|5|6"<<endl;
 	for(int i=0;i<7;i++){
 		cout<<i<<"| ";
+		desbloqueo();
 		for(int j = 0; j<7; j++){
       if (matriz[i][j]==0)
       {      
-      int num=1+rand()%(6-1);
-      matriz[i][j]=num;
-      }
-			cout << matriz[i][j] << " ";
-		}
-		cout << endl;
-	}
-	cout << endl;
-  	contador();  
-}
-void Tablero::guardarTablero(){
-	ofstream Guardando;
-	cout << "ingresa el nombre de esta partida" << endl;
-	string aux;
-	cin >> aux;
-	Guardando.open(aux + ".txt");
-	Guardando << nivel << endl;
-	Guardando << tiempoJuego << endl;
-	for(int i = 0;i<=5;i++){
-		Guardando << Puntaje[i] << endl;
-  	}
-	for(int i=0;i<7;i++){
-		for(int j = 0; j<7; j++){
-			Guardando << matriz[i][j] << " ";
-		}
-		Guardando << endl;
-	}
-}
-void Tablero::movimiento(){
-	int posX1,posY1,posX2,posY2;
-	cout << "ingrese la posicion Y, X del primer punto" << endl;
-	
-	cin >> posX1;
-	cin >> posY1;
-	if(posX1 > 6){posX1 = 6;}
-	if(posX1 < 0){posX1 = 0;}
-	if(posY1 > 6){posY1 = 6;}
-	if(posY1 < 0){posY1 = 0;}
-	
-	cout << "["<< posX1 <<"]["<< posY1 <<"]" << endl;
-	cout << "ingrese la posicion X,Y del segundo punto" << endl;
-	
-	cin >> posX2;
-	cin >> posY2;
-	if(posX2 > 6){posX2 = 6;}
-	if(posX2 < 0){posX2 = 0;}
-	if(posY2 > 6){posY2 = 6;}
-	if(posY2 < 0){posY2 = 0;}
-	
-	cout << "["<< posX2 <<"]["<< posY2 <<"]" << endl;
-	if(posX1 == posX2 && posY1 == posY2){
-		cout << "no puedes realizar este intercambio" << endl;
-	}else 
-	if((posX1 == posX2 || posY1 == posY2) && ((posX1+1 == posX2 || posX1-1 == posX2) || (posY1+1 == posY2 || posY1-1 == posY2))){
-		if((matriz[posX1][posX2] != 9) || (matriz[posX2][posY2] != 9)){swap(matriz[posX1][posY1],matriz[posX2][posY2]);}
-    match();
-		mostrarTablero();
-	}else{
-		cout << "no puedes realizar este intercambio" << endl;
-	}
-}
-void Tablero::contador(){
-	int a1=0, a2=0, a3=0, a4=0, a5=0, a6=0;
-	for(int i=0;i<7;i++){
-     	for(int j = 0; j<7; j++){
-			if (matriz[i][j]==1)/*Poder*/{
-         		a1=a1+1;
-       		} else if (matriz[i][j]==2)/*Espacio*/{
-         		a2=a2+1;
-       		} else if (matriz[i][j]==3)/*Tiempo*/{
-         		a3=a3+1;
-       		} else if (matriz[i][j]==4)/*Alma*/{
-         		a4=a4+1;
-       		} else if (matriz[i][j]==5)/*Realidad*/{
-         		a5=a5+1;
-       		} else if (matriz[i][j]==6)/*Mente*/{
-         		a6=a6+1;
-       		}      
-    	}    
-  	}
-  	cout<<"Cantidad de gemas (1) poder: "<<a1<<endl;
-  	cout<<"Cantidad de gemas (2) espacio: "<<a2<<endl;
-  	cout<<"Cantidad de gemas (3) tiempo: "<<a3<<endl;
-  	cout<<"Cantidad de gemas (4) alma: "<<a4<<endl;
-  	cout<<"Cantidad de gemas (5) realidad: "<<a5<<endl;
-  	cout<<"Cantidad de gemas (6) mente: "<<a6<<endl;        
-}
-void Tablero::match()
-{
-  //incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
-	for(int i = 6;i >= 0; i--){
-		for(int j = 6; j >= 0; j--){
-      int x=matriz[i][j];
-	if(x == matriz[i-1][j])
-      {
-        matriz[i][j]=0;
-        matriz[i-1][j]=0;
-      }
-      	if(x == matriz[i+1][j])
-      {
-        matriz[i][j]=0;
-        matriz[i+1][j]=0;
-      }
-      	if(x == matriz[i][j-1])
-      {
-        matriz[i][j]=0;
-        matriz[i][j-1]=0;
-      }
-      	if(x == matriz[i][j+1])
       {
         matriz[i][j]=0;        
         matriz[i][j+1]=0;
@@ -192,4 +84,28 @@ void Tablero::match()
 
 		}
 	}  
+}
+void Tablero::desbloqueo(){
+	for(int i = 6;i >= 0; i--){
+		for(int j = 6; j >= 0; j--){
+      int x=matriz[i][j];
+	if(matriz[i-1][j]==0&&x==9)
+      {
+        matriz[i][j]=6;
+      }
+      	if(matriz[i+1][j]==0&&x==9)
+      {
+        matriz[i][j]=6;
+      }
+      	if(matriz[i][j-1]==0&&x==9)
+      {
+        matriz[i][j]=6;
+      }
+      	if(matriz[i][j+1]==0&&x==9)
+      {
+        matriz[i][j]=6; 
+      }
+
+		}
+	}
 }
