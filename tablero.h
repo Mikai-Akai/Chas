@@ -12,11 +12,12 @@ public:
 	void mostrarTablero();
 	void guardarTablero();
 	void movimiento();
-  void match();
+  	void match();
 	bool victoria();
 	void menu();
-  void contador();
-  void desbloqueo();
+  	void contador();
+  	void desbloqueo();
+	void ordenarlos(int temporal);
 private:
 	int nivel;
 	int matriz[7][7];

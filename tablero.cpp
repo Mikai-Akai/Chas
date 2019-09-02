@@ -69,6 +69,7 @@ void Tablero::selectLevel(string nombre_archivo){
 }
 void Tablero::mostrarTablero(){
  	srand(time(NULL));
+   match();
 	cout<<"   0|1|2|3|4|5|6"<<endl;
 	for(int i=0;i<7;i++){
 		cout<<i<<"| ";
@@ -91,7 +92,7 @@ void Tablero::guardarTablero(){
 	cout << "ingresa el nombre de esta partida" << endl;
 	string aux;
 	cin >> aux;
-	Guardando.open(aux + ".txt");//Se le permitara al usuario darle                                    nombre a la partida guardada 
+	Guardando.open(aux + ".txt");//Se le permitara al usuario darle nombre a la partida guardada 
 	Guardando << nivel << endl;
 	Guardando << tiempoJuego << endl;
 	for(int i = 0;i<=4;i++){
@@ -176,9 +177,10 @@ void Tablero::match()
   //incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
 	for(int i = 6;i >= 0; i--){
 		for(int j = 6; j >= 0; j--){
-      		int x=matriz[i][j];
+      
+      	int x=matriz[i][j];
 			if(x == matriz[i-1][j]){
-				matriz[i][j]=0;
+			    matriz[i][j]=0;
     			matriz[i-1][j]=0;
 				Puntaje += 1000;
 			}
@@ -218,5 +220,13 @@ void Tablero::desbloqueo(){
         		matriz[i][j]=6; 
       		}
 		}
+	}
+}
+void Tablero::ordenarlos(int temporal){
+	if(temporal < 7){
+		if(matriz[temporal][0] != matriz[temporal+1][0]){
+			ordenarlos(temporal+1);
+		}
+		if(matriz[0] != matriz[1]){ordenarlos(temporal+1);}
 	}
 }
