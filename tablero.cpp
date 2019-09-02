@@ -92,7 +92,7 @@ void Tablero::guardarTablero(){
 	cout << "ingresa el nombre de esta partida" << endl;
 	string aux;
 	cin >> aux;
-	Guardando.open(aux + ".txt");
+	Guardando.open(aux + ".txt");//Se le permitara al usuario darle                                    nombre a la partida guardada 
 	Guardando << nivel << endl;
 	Guardando << tiempoJuego << endl;
 	for(int i = 0;i<=5;i++){
@@ -140,6 +140,7 @@ void Tablero::movimiento(){
 		cout << "no puedes realizar este intercambio" << endl;
 	}
 }
+//Esta funcion cuenta cuantas gemas 
 void Tablero::contador(){
 	int a1=0, a2=0, a3=0, a4=0, a5=0, a6=0;
 	for(int i=0;i<7;i++){
@@ -154,7 +155,7 @@ void Tablero::contador(){
          		a4=a4+1;
        		} else if (matriz[i][j]==5)/*Realidad*/{
          		a5=a5+1;
-       		} else if (matriz[i][j]==6)/*Mente*/{
+       		} else if (matriz[i][j]==6 || matriz[i][j]==9)/*Mente*/{
          		a6=a6+1;
        		}      
     	}    
@@ -196,6 +197,7 @@ void Tablero::match()
 		}
 	}  
 }
+//Esta funcion se encarga de revisar si se realiza un match cerca de un 9(gemamente bloqueda) para poder deblosquearla
 void Tablero::desbloqueo(){
 	for(int i = 6;i >= 0; i--){
 		for(int j = 6; j >= 0; j--){
