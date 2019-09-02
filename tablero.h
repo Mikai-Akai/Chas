@@ -22,7 +22,7 @@ private:
 	int matriz[7][7];
 	int tiempoJuego;
 	int gemasMente;
-  	vector <int> Puntaje;
   	bool chasquido;
+	int Puntaje;
 };
 #endif //_TABLERO_H_

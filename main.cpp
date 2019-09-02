@@ -22,12 +22,13 @@ int main() {
 		cin >> seleccion;
 		if(seleccion == 1){
 			tab1.selectLevel("Nivel1.txt");
-		}else{
+		}
+		else{
 			cout << "aun no hay mas niveles precargados, por default se carga el nivel 1" << endl;
 			tab1.selectLevel("Nivel1.txt");
-			}
-	}else
-	if(seleccion == 2){
+		}
+	}
+	else if(seleccion == 2){
 		cout << "ingrese el nombre de su partida" << endl;
 		cin >> jugado;
 		tab1.selectLevel(jugado+".txt");
@@ -40,7 +41,8 @@ int main() {
 		cin >> aux;
 		if(aux == "si"){
 			tab1.movimiento();
-		}else{
+		}
+		else{
 			x++;
 		}
 	}

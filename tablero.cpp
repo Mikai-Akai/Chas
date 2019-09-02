@@ -7,10 +7,7 @@ Tablero::Tablero(){
 	nivel = 0;
 	tiempoJuego = 0;
 	gemasMente = 0;
-	Puntaje.resize(6);
-	for(int i=0;i<5;i++){
-		Puntaje[i] = 0;
-	}
+	Puntaje = 0;
 	chasquido = false;
 }
 Tablero::~Tablero(){
@@ -43,7 +40,7 @@ bool Tablero::victoria(){
 	}
 }
 //Esta funcion selecciona el nivel a jugar y extrae lo datos del txt para mostrar el nivel
-void Tablero::selectLevel(string nombre_archivo) {
+void Tablero::selectLevel(string nombre_archivo){
 	ifstream archivo(nombre_archivo.c_str());
 	int aux = 0;
 	archivo >> aux;
@@ -51,7 +48,9 @@ void Tablero::selectLevel(string nombre_archivo) {
 	archivo >> aux;
 	tiempoJuego = aux;
   	for(int i = 0;i<=5;i++){
-    	archivo >> Puntaje[i];
+		archivo >> aux;
+		Puntaje += aux;
+		aux = 0;
   	}
 	for(int i=0;i<7;i++){
 		for(int j = 0; j<7; j++){
@@ -69,22 +68,22 @@ void Tablero::selectLevel(string nombre_archivo) {
 	}
 }
 void Tablero::mostrarTablero(){
-  srand(time(NULL));
+ 	srand(time(NULL));
 	cout<<"   0|1|2|3|4|5|6"<<endl;
 	for(int i=0;i<7;i++){
 		cout<<i<<"| ";
 		desbloqueo();
 		for(int j = 0; j<7; j++){
-      if (matriz[i][j]==0)
-      {      
-      int num=1+rand()%(6-1);
-      matriz[i][j]=num;
-      }
+      		if (matriz[i][j]==0){      
+      			int num=1+rand()%(6-1);
+      			matriz[i][j]=num;
+      		}
 			cout << matriz[i][j] << " ";
 		}
 		cout << endl;
 	}
 	cout << endl;
+	cout << "El Puntaje actual es: " << Puntaje << endl;
   	contador();  
 }
 void Tablero::guardarTablero(){
@@ -95,9 +94,10 @@ void Tablero::guardarTablero(){
 	Guardando.open(aux + ".txt");//Se le permitara al usuario darle                                    nombre a la partida guardada 
 	Guardando << nivel << endl;
 	Guardando << tiempoJuego << endl;
-	for(int i = 0;i<=5;i++){
-		Guardando << Puntaje[i] << endl;
+	for(int i = 0;i<=4;i++){
+		Guardando << 0;
   	}
+	Guardando << Puntaje;
 	for(int i=0;i<7;i++){
 		for(int j = 0; j<7; j++){
 			Guardando << matriz[i][j] << " ";
@@ -129,14 +129,18 @@ void Tablero::movimiento(){
 	cout << "["<< posX2 <<"]["<< posY2 <<"]" << endl;
 	if(posX1 == posX2 && posY1 == posY2){
 		cout << "no puedes realizar este intercambio" << endl;
-	}else 
-	if((posX1 == posX2 || posY1 == posY2) && ((posX1+1 == posX2 || posX1-1 == posX2) || (posY1+1 == posY2 || posY1-1 == posY2))){
-		if((matriz[posX1][posX2] != 9) && (matriz[posX2][posY2] != 9)){swap(matriz[posX1][posY1],matriz[posX2][posY2]);}else{
+	}
+	else if((posX1 == posX2 || posY1 == posY2) && ((posX1+1 == posX2 || posX1-1 == posX2) || (posY1+1 == posY2 || posY1-1 == posY2))){
+		if((matriz[posX1][posX2] != 9) && (matriz[posX2][posY2] != 9)){
+			swap(matriz[posX1][posY1],matriz[posX2][posY2]);
+		}
+		else{
 			cout << "no puedes realizar este intercambio" << endl;
 		}
-    match();
+    	match();
 		mostrarTablero();
-	}else{
+	}
+	else{
 		cout << "no puedes realizar este intercambio" << endl;
 	}
 }
@@ -172,28 +176,27 @@ void Tablero::match()
   //incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
 	for(int i = 6;i >= 0; i--){
 		for(int j = 6; j >= 0; j--){
-      int x=matriz[i][j];
-	if(x == matriz[i-1][j])
-      {
-        matriz[i][j]=0;
-        matriz[i-1][j]=0;
-      }
-      	if(x == matriz[i+1][j])
-      {
-        matriz[i][j]=0;
-        matriz[i+1][j]=0;
-      }
-      	if(x == matriz[i][j-1])
-      {
-        matriz[i][j]=0;
-        matriz[i][j-1]=0;
-      }
-      	if(x == matriz[i][j+1])
-      {
-        matriz[i][j]=0;        
-        matriz[i][j+1]=0;
-      }
-
+      		int x=matriz[i][j];
+			if(x == matriz[i-1][j]){
+				matriz[i][j]=0;
+    			matriz[i-1][j]=0;
+				Puntaje += 1000;
+			}
+			if(x == matriz[i+1][j]){
+        		matriz[i][j]=0;
+        		matriz[i+1][j]=0;
+				Puntaje += 1000;
+    		}
+    		if(x == matriz[i][j-1]){
+        		matriz[i][j]=0;
+        		matriz[i][j-1]=0;
+				Puntaje += 1000;
+    		}
+    		if(x == matriz[i][j+1]){
+        		matriz[i][j]=0;        
+        		matriz[i][j+1]=0;
+				Puntaje += 1000;
+			}
 		}
 	}  
 }
@@ -201,24 +204,19 @@ void Tablero::match()
 void Tablero::desbloqueo(){
 	for(int i = 6;i >= 0; i--){
 		for(int j = 6; j >= 0; j--){
-      int x=matriz[i][j];
-	if(matriz[i-1][j]==0&&x==9)
-      {
-        matriz[i][j]=6;
-      }
-      	if(matriz[i+1][j]==0&&x==9)
-      {
-        matriz[i][j]=6;
-      }
-      	if(matriz[i][j-1]==0&&x==9)
-      {
-        matriz[i][j]=6;
-      }
-      	if(matriz[i][j+1]==0&&x==9)
-      {
-        matriz[i][j]=6; 
-      }
-
+      		int x=matriz[i][j];
+			if(matriz[i-1][j]==0&&x==9){
+        		matriz[i][j]=6;
+      		}
+      		if(matriz[i+1][j]==0&&x==9){
+        		matriz[i][j]=6;
+    		}
+			if(matriz[i][j-1]==0&&x==9){
+        		matriz[i][j]=6;
+      		}	
+      		if(matriz[i][j+1]==0&&x==9){
+        		matriz[i][j]=6; 
+      		}
 		}
 	}
 }
