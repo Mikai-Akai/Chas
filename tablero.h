@@ -16,6 +16,7 @@ public:
 	bool victoria();
 	void menu();
   void contador();
+  void desbloqueo();
 private:
 	int nivel;
 	int matriz[7][7];
