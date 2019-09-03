@@ -1,6 +1,6 @@
 #include "tablero.h"
-#include<stdlib.h>
-#include<time.h>
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 Tablero::Tablero(){
@@ -9,7 +9,7 @@ Tablero::Tablero(){
 	gemasMente = 0;
 	Puntaje = 0;
 	chasquido = false;
-  jugadas = 20;
+  jugadas=20;
 }
 Tablero::~Tablero(){
 }
@@ -33,11 +33,13 @@ void Tablero::cronometro(int limite){
 }
 */
 //Esta funcion revisa si se ha hecho un chasquido y retorna un true o false de acuerdo a esto
-bool Tablero::victoria(){
-	if(chasquido){
-		return true;
-	}else{
-		return false;
+void Tablero::victoria(){	
+  if(Puntaje>=60000){
+		cout<<"Thanos ha cumplido su acometido, la mitad del mundo ha sido borrada y el equilibrio esta reestablecido"<<endl;
+    cout<<"FELICITACIONES"<<endl;
+	}else if(Puntaje<=60000&&jugadas==0){
+		cout<<"Thanos no ha sido capaz de reestablecer el equilibrio y ha sido derrotado"<<endl;
+    cout<<"GAME OVER"<<endl;
 	}
 }
 //Esta funcion selecciona el nivel a jugar y extrae lo datos del txt para mostrar el nivel
@@ -97,9 +99,9 @@ void Tablero::guardarTablero(){
 	Guardando << nivel << endl;
 	Guardando << tiempoJuego << endl;
 	for(int i = 0;i<=4;i++){
-		Guardando << 0;
+		Guardando << 0 << endl;
   	}
-	Guardando << Puntaje;
+	Guardando << Puntaje << endl;
 	for(int i=0;i<7;i++){
 		for(int j = 0; j<7; j++){
 			Guardando << matriz[i][j] << " ";
@@ -148,7 +150,7 @@ void Tablero::movimiento(){
 		cout << "no puedes realizar este intercambio" << endl;
 	}
  cout<<"Numero de jugadas restante: "<<jugadas<<endl; } jugadas-=1;
-
+ victoria();
 }
 //Esta funcion cuenta cuantas gemas 
 void Tablero::contador(){
@@ -175,37 +177,38 @@ void Tablero::contador(){
   	cout<<"Cantidad de gemas (3) tiempo: "<<a3<<endl;
   	cout<<"Cantidad de gemas (4) alma: "<<a4<<endl;
   	cout<<"Cantidad de gemas (5) realidad: "<<a5<<endl;
-  	cout<<"Cantidad de gemas (6) mente: "<<a6<<endl;        
+  	cout<<"Cantidad de gemas (6 o 9 si esta bloqueada) mente: "<<a6<<endl;        
 }
 void Tablero::match()
 {
-  //incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
-	for(int i = 6;i >= 0; i--){
-		for(int j = 6; j >= 0; j--){
-      	int x=matriz[i][j];
-			if(x == matriz[i-1][j]){
-			    matriz[i][j]=0;
-    			matriz[i-1][j]=0;
-				Puntaje += 1000;
-			}
-			if(x == matriz[i+1][j]){
-        		matriz[i][j]=0;
-        		matriz[i+1][j]=0;
-				Puntaje += 1000;
-    		}
-    		if(x == matriz[i][j-1]){
-        		matriz[i][j]=0;
-        		matriz[i][j-1]=0;
-				Puntaje += 1000;
-    		}
-    		if(x == matriz[i][j+1]){
-        		matriz[i][j]=0;        
-        		matriz[i][j+1]=0;
-				Puntaje += 1000;
-			}
-		}
-	}  
-}
+ //incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
+  for(int i = 6;i >= 0; i--){
+	  for(int j = 6; j >= 0; j--){      
+     	int x=matriz[i][j];
+		  if(x == matriz[i-1][j]){
+           matriz[i][j]=0;
+   			  matriz[i-1][j]=0;
+			  Puntaje += 1000;
+		  }
+		  if(x == matriz[i+1][j]){
+       		matriz[i][j]=0;
+       	  matriz[i+1][j]=0;
+			  Puntaje += 1000;
+   		  }
+   		  if(x == matriz[i][j-1]){
+       		matriz[i][j]=0;
+       	  matriz[i][j-1]=0;
+			  Puntaje += 1000;
+   		  }
+   	  	if(x == matriz[i][j+1]){
+       		matriz[i][j]=0;        
+       	  matriz[i][j+1]=0;
+			  Puntaje += 1000;
+		  }
+	  }
+  }
+}  
+
 //Esta funcion se encarga de revisar si se realiza un match cerca de un 9(gemamente bloqueda) para poder deblosquearla
 void Tablero::desbloqueo(){
 	for(int i = 6;i >= 0; i--){
