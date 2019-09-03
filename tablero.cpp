@@ -9,6 +9,7 @@ Tablero::Tablero(){
 	gemasMente = 0;
 	Puntaje = 0;
 	chasquido = false;
+  jugadas = 20;
 }
 Tablero::~Tablero(){
 }
@@ -107,7 +108,9 @@ void Tablero::guardarTablero(){
 	}
 }
 void Tablero::movimiento(){
-	int posX1,posY1,posX2,posY2;
+  if(jugadas>0)
+  {
+    	int posX1,posY1,posX2,posY2;
 	cout << "ingrese la posicion Y, X del primer punto" << endl;
 	
 	cin >> posX1;
@@ -144,6 +147,8 @@ void Tablero::movimiento(){
 	else{
 		cout << "no puedes realizar este intercambio" << endl;
 	}
+ cout<<"Numero de jugadas restante: "<<jugadas<<endl; } jugadas-=1;
+
 }
 //Esta funcion cuenta cuantas gemas 
 void Tablero::contador(){
@@ -177,7 +182,6 @@ void Tablero::match()
   //incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
 	for(int i = 6;i >= 0; i--){
 		for(int j = 6; j >= 0; j--){
-      
       	int x=matriz[i][j];
 			if(x == matriz[i-1][j]){
 			    matriz[i][j]=0;

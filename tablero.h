@@ -25,5 +25,6 @@ private:
 	int gemasMente;
   	bool chasquido;
 	int Puntaje;
+  int jugadas;
 };
 #endif //_TABLERO_H_
