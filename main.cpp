@@ -33,10 +33,10 @@ int main() {
 		cin >> jugado;
 		tab1.selectLevel(jugado+".txt");
 	}
-	tab1.mostrarTablero();
+	tab1.match();
 	int x = 1;
 	while(x == 1){
-		cout << "deseas mover? si/no" << endl;
+		cout << "deseas mover? si/no (Guardar partida)" << endl;
 		string aux;
 		cin >> aux;
 		if(aux == "si"){

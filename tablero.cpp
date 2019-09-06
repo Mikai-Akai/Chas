@@ -70,9 +70,8 @@ void Tablero::selectLevel(string nombre_archivo){
 		}
 	}
 }
-void Tablero::mostrarTablero(){
- 	srand(time(NULL));
-   match();
+void Tablero::mostrarTablero(){   
+  srand(time(NULL));
 	cout<<"   0|1|2|3|4|5|6"<<endl;
 	for(int i=0;i<7;i++){
 		cout<<i<<"| ";
@@ -85,10 +84,32 @@ void Tablero::mostrarTablero(){
 			cout << matriz[i][j] << " ";
 		}
 		cout << endl;
-	}
+	}  
 	cout << endl;
 	cout << "El Puntaje actual es: " << Puntaje << endl;
-  	contador();  
+  contador();
+
+
+  for(int i = 0;i < 7; i++){
+	  for(int j = 0; j < 7; j++){      
+     	int x=matriz[i][j];
+		  if(x == matriz[i-1][j]){
+           match();
+		  }
+		  else if(x == matriz[i+1][j]){
+       		match();
+   		  }
+   		  else if(x == matriz[i][j-1]){
+       		match();
+   		  }
+   	  	else if(x == matriz[i][j+1]){
+       		match();
+		  }
+	  }
+  }
+
+
+
 }
 void Tablero::guardarTablero(){
 	ofstream Guardando;
@@ -123,7 +144,7 @@ void Tablero::movimiento(){
 	if(posY1 < 0){posY1 = 0;}
 	
 	cout << "["<< posX1 <<"]["<< posY1 <<"]" << endl;
-	cout << "ingrese la posicion X,Y del segundo punto" << endl;
+	cout << "ingrese la posicion Y, X del segundo punto" << endl;
 	
 	cin >> posX2;
 	cin >> posY2;
@@ -181,7 +202,7 @@ void Tablero::contador(){
 }
 void Tablero::match()
 {
- //incompleto, ya recorre el tablero analizando igualdad entre las gemas de los lados, pero aun no tiene un proceso a realizar
+ //recorre el tablero analizando igualdad entre las gemas de los lados
   for(int i = 6;i >= 0; i--){
 	  for(int j = 6; j >= 0; j--){      
      	int x=matriz[i][j];
@@ -207,9 +228,10 @@ void Tablero::match()
 		  }
 	  }
   }
+  mostrarTablero();
 }  
 
-//Esta funcion se encarga de revisar si se realiza un match cerca de un 9(gemamente bloqueda) para poder deblosquearla
+//Esta funcion se encarga de revisar si se realiza un match cerca de un 9(gema mente bloqueda) para poder deblosquearla
 void Tablero::desbloqueo(){
 	for(int i = 6;i >= 0; i--){
 		for(int j = 6; j >= 0; j--){
