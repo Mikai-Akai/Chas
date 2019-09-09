@@ -34,10 +34,10 @@ void Tablero::cronometro(int limite){
 */
 //Esta funcion revisa si se ha hecho un chasquido y retorna un true o false de acuerdo a esto
 void Tablero::victoria(){	
-  if(Puntaje>=60000){
+  if(Puntaje>=100000){
 		cout<<"Thanos ha cumplido su acometido, la mitad del mundo ha sido borrada y el equilibrio esta reestablecido"<<endl;
     cout<<"FELICITACIONES"<<endl;
-	}else if(Puntaje<=60000&&jugadas==0){
+	}else if(Puntaje<=100000&&jugadas==0){
 		cout<<"Thanos no ha sido capaz de reestablecer el equilibrio y ha sido derrotado"<<endl;
     cout<<"GAME OVER"<<endl;
 	}
