@@ -90,19 +90,22 @@ Funcion:Mostrar el tablero de juego, una vez todos los matches surgidos tras una
 Salida:Ninguna
 */
 void Tablero::mostrarTablero(){   
-  srand(time(NULL));
-	cout<<"   0|1|2|3|4|5|6"<<endl;
+ 	srand(time(NULL));
+ 	cout << "|---|---|---|---|---|---|---|---|" << endl;
+	cout << "|X Y| 0 | 1 | 2 | 3 | 4 | 5 | 6 |" << endl;
+	cout << "|---|---|---|---|---|---|---|---|" << endl;
 	for(int i=0;i<7;i++){
-		cout<<i<<"| ";
+		cout<<"| " << i << " |";
 		desbloqueo();
 		for(int j = 0; j<7; j++){
       		if (matriz[i][j]==0){      
       			int num=1+rand()%(6-1);
       			matriz[i][j]=num;
       		}
-			cout << matriz[i][j] << " ";
+			cout << " "<< matriz[i][j] << " |";
 		}
 		cout << endl;
+		cout << "|---|---|---|---|---|---|---|---|" << endl;
 	}  
 	cout << endl;
 	cout << "El Puntaje actual es: " << Puntaje << endl;
