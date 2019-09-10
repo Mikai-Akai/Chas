@@ -32,7 +32,13 @@ void Tablero::cronometro(int limite){
 	
 }
 */
-//Esta funcion revisa si se ha hecho un chasquido y retorna un true o false de acuerdo a esto
+
+/*
+Nombre:victoria
+ Parametros: Ninguno
+ Funcion: Comprobar si se ha alcanzado el puntaje requerido en la cantidad de jugadas disponible,lanzando un mensaje dependiendo del caso 
+ Salida:Ninguna.
+ */ 
 void Tablero::victoria(){	
   if(Puntaje>=100000){
 		cout<<"Thanos ha cumplido su acometido, la mitad del mundo ha sido borrada y el equilibrio esta reestablecido"<<endl;
@@ -42,7 +48,14 @@ void Tablero::victoria(){
     cout<<"GAME OVER"<<endl;
 	}
 }
-//Esta funcion selecciona el nivel a jugar y extrae lo datos del txt para mostrar el nivel
+
+/*
+Nombre:selectLevel
+Parametros: String
+Funcion: Esta funcion selecciona el nivel a jugar y extrae lo datos del txt para mostrar el nivel
+Salida:Ninguna
+*/
+
 void Tablero::selectLevel(string nombre_archivo){
 	ifstream archivo(nombre_archivo.c_str());
 	int aux = 0;
@@ -70,6 +83,12 @@ void Tablero::selectLevel(string nombre_archivo){
 		}
 	}
 }
+/*
+Nombre:mostrarTablero
+Parametros:Ninguno
+Funcion:Mostrar el tablero de juego, una vez todos los matches surgidos tras una jugada se hallan calculado ademas de imprimir el puntaje.
+Salida:Ninguna
+*/
 void Tablero::mostrarTablero(){   
   srand(time(NULL));
 	cout<<"   0|1|2|3|4|5|6"<<endl;
@@ -89,7 +108,7 @@ void Tablero::mostrarTablero(){
 	cout << "El Puntaje actual es: " << Puntaje << endl;
   contador();
 
-
+ //Aqui se resuelven todos lo matches posibles
   for(int i = 0;i < 7; i++){
 	  for(int j = 0; j < 7; j++){      
      	int x=matriz[i][j];
@@ -111,12 +130,18 @@ void Tablero::mostrarTablero(){
 
 
 }
+/*
+Nombre:guardarTablero
+Parametros:Ninguno
+Funcion:Una vez el usuario quiera dejar el juego,esta funcion le permite darle un nombre a la partida para posteriormente guardar los datos de la partida en un txt.
+Salida:Ninguna
+*/
 void Tablero::guardarTablero(){
 	ofstream Guardando;
 	cout << "ingresa el nombre de esta partida" << endl;
 	string aux;
 	cin >> aux;
-	Guardando.open(aux + ".txt");//Se le permitara al usuario darle nombre a la partida guardada 
+	Guardando.open(aux + ".txt");//Apesar de que esta linea parece tirar error, realmente no hay problema alguno
 	Guardando << nivel << endl;
 	Guardando << tiempoJuego << endl;
 	for(int i = 0;i<=4;i++){
@@ -130,14 +155,22 @@ void Tablero::guardarTablero(){
 		Guardando << endl;
 	}
 }
+/*
+Nombre:movimiento
+Parametros:Ninguno
+Funcion:Pide al usuario ingresar los datos de las gemas que quiera mover, verifica si el movimiento es valido, en caso contrario tira un mensaje indicando esto,de ser valido cambia las posiciones de las gemas,llama a match y a mostrartablero,le resta 1 al numero de jugadas y llama a la funcion victoria
+Salida:Ninguna
+*/
 void Tablero::movimiento(){
   if(jugadas>0)
   {
     	int posX1,posY1,posX2,posY2;
 	cout << "ingrese la posicion Y, X del primer punto" << endl;
 	
-	cin >> posX1;
-	cin >> posY1;
+	cin >> posX1; //Posicion x de la gema 1
+	cin >> posY1; //Posicion y de la gema 1
+
+  //En caso de que el usuario ingrese un numero fuera de rango se acomada a un valor predeterminado
 	if(posX1 > 6){posX1 = 6;}
 	if(posX1 < 0){posX1 = 0;}
 	if(posY1 > 6){posY1 = 6;}
@@ -146,14 +179,17 @@ void Tablero::movimiento(){
 	cout << "["<< posX1 <<"]["<< posY1 <<"]" << endl;
 	cout << "ingrese la posicion Y, X del segundo punto" << endl;
 	
-	cin >> posX2;
-	cin >> posY2;
+	cin >> posX2; //Posicion x de la gema 2
+	cin >> posY2; //Posicion y de la gema 2
+
+  //En caso de que el usuario ingrese un numero fuera de rango se acomada a un valor predeterminado
 	if(posX2 > 6){posX2 = 6;}
 	if(posX2 < 0){posX2 = 0;}
 	if(posY2 > 6){posY2 = 6;}
 	if(posY2 < 0){posY2 = 0;}
 	
 	cout << "["<< posX2 <<"]["<< posY2 <<"]" << endl;
+  //Se revisa que las posiciones no sean las mismas
 	if(posX1 == posX2 && posY1 == posY2){
 		cout << "no puedes realizar este intercambio" << endl;
 	}
@@ -173,7 +209,11 @@ void Tablero::movimiento(){
  cout<<"Numero de jugadas restante: "<<jugadas<<endl; } jugadas-=1;
  victoria();
 }
-//Esta funcion cuenta cuantas gemas 
+/*
+Nombre:contador
+Parametros:Ninguno
+Funcion:Contabilizar cuantas gemas de cada tipo hay y madar un mensaje con la cantidad total de cada una.
+*/
 void Tablero::contador(){
 	int a1=0, a2=0, a3=0, a4=0, a5=0, a6=0;
 	for(int i=0;i<7;i++){
@@ -200,6 +240,11 @@ void Tablero::contador(){
   	cout<<"Cantidad de gemas (5) realidad: "<<a5<<endl;
   	cout<<"Cantidad de gemas (6 o 9 si esta bloqueada) mente: "<<a6<<endl;        
 }
+/*
+Nombre:match
+Parametros:Ninguno
+Funcion:Recorrer el tablero,ver si hay match y darle puntos al jugador de ser asi,luego llama a mostrartablero
+*/
 void Tablero::match()
 {
  //recorre el tablero analizando igualdad entre las gemas de los lados
@@ -230,8 +275,11 @@ void Tablero::match()
   }
   mostrarTablero();
 }  
-
-//Esta funcion se encarga de revisar si se realiza un match cerca de un 9(gema mente bloqueda) para poder deblosquearla
+/*
+Nombre:desbloqueo
+Parametros:Ninguno
+Funcion:se encarga de revisar si se realiza un match cerca de un 9(gema mente bloqueda) para poder deblosquearla, hay un match cerca si un numero cercano es igual a 0.
+*/
 void Tablero::desbloqueo(){
 	for(int i = 6;i >= 0; i--){
 		for(int j = 6; j >= 0; j--){

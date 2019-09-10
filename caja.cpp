@@ -1,5 +1,5 @@
 #include "caja.h"
-//funcion constructor de gemas, crea una de 6 gemas, basado en un random
+//funcion constructor de cajas,en la version final no tiene funcion
 Caja::Caja(){
 	numero = 0;
 }

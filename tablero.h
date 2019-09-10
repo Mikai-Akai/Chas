@@ -10,29 +10,28 @@
 #include <vector>
 using namespace std;
 class Tablero {
-	//clase tablero, contiene la funcion de mostrar tiempo		2.funcion match detecta cuando se reunen los requisitos para generar un match, sacar las gemas en cuestion del tablero, y hacer bajar de posicion las gemas de arriba 	3.funcion ganar produce un mensaje y detecta cuando se ha ganado el juego		4.funcion perder muetra un mensaje y detecta cuando se ha acabado el tiempo		5.funcion menu permite reiniciar el juego y contiene las distintas opciones de nivel y tiempo
-	// esta clase tiene los valores internos: 1. array de 2 dimensiones de tipo caja, con los valores 7 y 7 de largo y ancho preestablecidos para el tablero, tiempo juego es un entero en el cual se almacena el tiempo jugado y gemas mente, es el contado en el cual se cuenta cuantas gemas mente se han completado
+	//clase tablero, contiene las funciones de seleccion,y guardado de    niveles,verifica movimientos y matches,cuenta las variables del     juego y las modifica.
 public:
-	Tablero();
-	~Tablero();
-	void cronometro(int limite);
-	void selectLevel(string nombre_archivo);
-	void mostrarTablero();
-	void guardarTablero();
-	void movimiento();
-  void match();
-	void victoria();
-	void menu();
-  void contador();
-  void desbloqueo();
-	void ordenarlos(int temporal);
+	Tablero();//Constructor
+	~Tablero();//Destructor
+	void cronometro(int limite);//cronometro
+	void selectLevel(string nombre_archivo);//Metodo para seleccion de nivel
+	void mostrarTablero();//Metodo para imprimir el tablero
+	void guardarTablero();//Metodo para guardar partida
+	void movimiento();//Metodo encargado de los movimientos del usuario
+  void match();//Metodo que verifica match entre gemas
+	void victoria();//Metodo que revisa si se cumplen las condiciones de victoria
+	void menu();//No se utiliza,menu en el main
+  void contador();//Metodo de conteo de gemas
+  void desbloqueo();//Metodo para hacer el desbloqueo de las gemas mente
+	void ordenarlos(int temporal);//No se utiliza
 private:
-	int nivel;
-	int matriz[7][7];
-	int tiempoJuego;
-	int gemasMente;
-  bool chasquido;
-	int Puntaje;
-  int jugadas;
+	int nivel; //Variable que representa el numero del nivel
+	int matriz[7][7];//array que representa el tablero de juego
+	int tiempoJuego;//Variable en desuso,representaba el timepo de juego
+	int gemasMente;//Variable que representa la cantidad de gemas mente
+  bool chasquido;//Varaible en desuso representaba si se realizo un chasquido
+	int Puntaje;//Variable que representa el Puntaje del jugador
+  int jugadas;//variable que representa el numero de movimientos restantes del jugador
 };
 #endif //_TABLERO_H_
